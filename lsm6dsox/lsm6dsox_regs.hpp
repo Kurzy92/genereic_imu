@@ -125,8 +125,48 @@ namespace lsm6dsox {
         constexpr uint8_t SIM              = 0x03;
         constexpr uint8_t PP_OD            = 0x04;
         constexpr uint8_t H_LACTIVE        = 0x05;
-        constexpr uint8_t BDU              = 0x06;
+        constexpr uint8_t BDU              = 0x06;  
         constexpr uint8_t BOOT             = 0x07;
+    }
+
+    namespace CTRL4_C {
+        constexpr uint8_t LPF1_SEL_G       = 0x01;
+        constexpr uint8_t I2C_DISABLE      = 0x02;
+        constexpr uint8_t DRDY_MASK        = 0x03;
+        constexpr uint8_t INT2_ON_INT1     = 0x05;
+        constexpr uint8_t SLEEP_G          = 0x06;
+    }
+
+    namespace CTRL5_C {
+        constexpr uint8_t ST0_XL            = 0x00;
+        constexpr uint8_t ST1_XL            = 0x01;
+        constexpr uint8_t ST0_G             = 0x02;
+        constexpr uint8_t ST1_G             = 0x03;
+        constexpr uint8_t ROUNDING_STATUS   = 0x04;
+        constexpr uint8_t ROUNDING0         = 0x05; 
+        constexpr uint8_t ROUNDING1         = 0x06;
+        constexpr uint8_t XL_ULP_EN         = 0x07;
+    }
+
+    namespace CTRL6_C {
+        constexpr uint8_t FTYPE_0           = 0x00;
+        constexpr uint8_t FTYPE_1           = 0x01;
+        constexpr uint8_t FTYPE_2           = 0x02;
+        constexpr uint8_t USR_OFF_W         = 0x03;
+        constexpr uint8_t XL_HM_MODE        = 0x04;
+        constexpr uint8_t LVL2_EN           = 0x05;
+        constexpr uint8_t LVL1_EN           = 0x06;
+        constexpr uint8_t TRIG_EN           = 0x07;
+    }
+
+    namespace CTRL7_G {
+        constexpr uint8_t OIS_ON            = 0x00;
+        constexpr uint8_t USR_OFF_ON_OUT    = 0x01;
+        constexpr uint8_t OIS_ON_EN         = 0x02;
+        constexpr uint8_t HPM0_G            = 0x04;
+        constexpr uint8_t HPM1_G            = 0x05;
+        constexpr uint8_t HP_EN_G           = 0x06;
+        constexpr uint8_t G_HM_MODE         = 0x07;
     }
 } // namespace lsm6dsox
 

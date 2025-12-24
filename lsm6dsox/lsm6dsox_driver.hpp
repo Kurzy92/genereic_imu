@@ -1,4 +1,5 @@
 #include "lsm6dsox_bus.hpp"
+#include "lsm6dsox_regs.hpp"
 
 namespace lsm6dsox {
 
@@ -7,25 +8,53 @@ namespace lsm6dsox {
         SPI
     };
 
-    template<Bus T, Interface interfaceType>
+    enum class Configuration {
+        DEFAULT,
+        HIGH_PERFORMANCE,
+        LOW_POWER
+    };
+
+    template<Bus T, Interface interfaceType, Configuration config=Configuration::DEFAULT>
     class Driver {
     public:
-        Driver(T bus) : bus(bus) {}
+        Driver(T& bus) : bus_(bus) {}
 
         bool init() {
+            if (!init_interface_()) {
+                return false;
+            }
+
             return true;
         }
 
-        bool read(uint8_t reg, uint8_t* buf, size_t len) {
-            return bus.read(reg, buf, len);
+    private:
+    // Member functions
+        bool init_interface_() {
+            uint8_t data = 0;
+            // read and store CTRL4_C for bit manipulation
+            if (!read_reg_(reg::CTRL4_C, data)) return false;
+            
+            if constexpr (interfaceType == Interface::I2C) {
+                data &= ~(1u << reg::CTRL4_C::I2C_DISABLE);
+                
+            } else if constexpr (interfaceType == Interface::SPI) {
+                data |= (1u << reg::CTRL4_C::I2C_DISABLE);
+            }
+            return write_reg_(reg::CTRL4_C, data);
         }
 
-        bool write(uint8_t reg, uint8_t* buf, size_t len) {
-            return bus.write(reg, buf, len);
+    // Register read/write helpers
+        bool read_reg_(uint8_t reg, uint8_t& data) {
+            return bus_.read(reg, &data, 1);
+        }
+
+        bool write_reg_(uint8_t reg, uint8_t data) {
+            return bus_.write(reg, &data, 1);
         }
 
     private:
-        T bus;
+    // Member variables
+        T& bus_;
     };  
 
 }

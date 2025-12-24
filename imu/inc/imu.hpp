@@ -3,12 +3,11 @@
 
 
 namespace imu {
-
     // IMU class
-
     template<AccelDriver Accel, 
             GyroDriver Gyro=NullGyro, 
             MagDriver Mag=NullMag>
+
     class IMU {
     public:
         static constexpr bool gyro_present = Gyro::present;
