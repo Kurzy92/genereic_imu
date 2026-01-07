@@ -1,17 +1,13 @@
 #include "lsm6dsox_bus.hpp"
 #include "lsm6dsox_regs.hpp"
+#include "lsm6dsox_configuration.hpp"
+#include "register.hpp"
 
 namespace lsm6dsox {
 
     enum class Interface {
         I2C,
         SPI
-    };
-
-    enum class Configuration {
-        DEFAULT,
-        HIGH_PERFORMANCE,
-        LOW_POWER
     };
 
     template<Bus T, Interface interfaceType, Configuration config=Configuration::DEFAULT>
@@ -55,6 +51,15 @@ namespace lsm6dsox {
     private:
     // Member variables
         T& bus_;
+
+        // Registers
+        Register ctrl1_xl_{CTRL1_XL::RESET_VALUE};
+        Register ctrl2_g_{CTRL2_G::RESET_VALUE};
+        Register ctrl3_c_{CTRL3_C::RESET_VALUE};
+        Register ctrl4_c_{CTRL4_C::RESET_VALUE};
+        Register ctrl5_g_{CTRL5_C::RESET_VALUE};
+        Register ctrl7_g_{CTRL7_G::RESET_VALUE};
+
     };  
 
 }

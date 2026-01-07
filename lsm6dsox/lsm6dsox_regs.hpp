@@ -48,6 +48,8 @@ namespace lsm6dsox {
         constexpr uint8_t INT1_FSS5         = 0x05;
         constexpr uint8_t INT1_CNT_BDR      = 0x06;
         constexpr uint8_t DEN_DRDY_flag     = 0x07;
+
+        constexpr uint8_t RESET_VALUE       = 0x00;
     }
 
     namespace INT2_CTRL {
@@ -58,6 +60,8 @@ namespace lsm6dsox {
         constexpr uint8_t INT2_OVRUN        = 0x04;
         constexpr uint8_t INT2_FSS5         = 0x05;
         constexpr uint8_t INT2_CNT_BDR      = 0x06;
+
+        constexpr uint8_t RESET_VALUE       = 0x00;
     }
 
     namespace CTRL1_XL {
@@ -90,6 +94,8 @@ namespace lsm6dsox {
             ODR_XL_10_66kHz                = 0b1110,
             ODR_XL_21_33kHz                = 0b1111
         };
+
+        constexpr uint8_t RESET_VALUE      = 0x00;
     }
     
     namespace CTRL2_G {
@@ -117,6 +123,8 @@ namespace lsm6dsox {
             ODR_G_3_33kHz                  = 0b1001,
             ODR_G_6_66kHz                  = 0b1010,
         };
+
+        constexpr uint8_t RESET_VALUE      = 0x00;
     }
 
     namespace CTRL3_C {
@@ -125,8 +133,10 @@ namespace lsm6dsox {
         constexpr uint8_t SIM              = 0x03;
         constexpr uint8_t PP_OD            = 0x04;
         constexpr uint8_t H_LACTIVE        = 0x05;
-        constexpr uint8_t BDU              = 0x06;  
+        constexpr uint8_t BDU              = 0x06;
         constexpr uint8_t BOOT             = 0x07;
+
+        constexpr uint8_t RESET_VALUE      = 0x04;  // IF_INC bit is 1 at reset
     }
 
     namespace CTRL4_C {
@@ -135,6 +145,8 @@ namespace lsm6dsox {
         constexpr uint8_t DRDY_MASK        = 0x03;
         constexpr uint8_t INT2_ON_INT1     = 0x05;
         constexpr uint8_t SLEEP_G          = 0x06;
+
+        constexpr uint8_t RESET_VALUE      = 0x00;
     }
 
     namespace CTRL5_C {
@@ -143,9 +155,11 @@ namespace lsm6dsox {
         constexpr uint8_t ST0_G             = 0x02;
         constexpr uint8_t ST1_G             = 0x03;
         constexpr uint8_t ROUNDING_STATUS   = 0x04;
-        constexpr uint8_t ROUNDING0         = 0x05; 
+        constexpr uint8_t ROUNDING0         = 0x05;
         constexpr uint8_t ROUNDING1         = 0x06;
         constexpr uint8_t XL_ULP_EN         = 0x07;
+
+        constexpr uint8_t RESET_VALUE       = 0x00;
     }
 
     namespace CTRL6_C {
@@ -157,6 +171,8 @@ namespace lsm6dsox {
         constexpr uint8_t LVL2_EN           = 0x05;
         constexpr uint8_t LVL1_EN           = 0x06;
         constexpr uint8_t TRIG_EN           = 0x07;
+
+        constexpr uint8_t RESET_VALUE       = 0x00;
     }
 
     namespace CTRL7_G {
@@ -167,6 +183,8 @@ namespace lsm6dsox {
         constexpr uint8_t HPM1_G            = 0x05;
         constexpr uint8_t HP_EN_G           = 0x06;
         constexpr uint8_t G_HM_MODE         = 0x07;
+
+        constexpr uint8_t RESET_VALUE       = 0x00;
     }
 } // namespace lsm6dsox
 
