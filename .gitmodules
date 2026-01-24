@@ -1,0 +1,3 @@
+[submodule "external/embedded_utils"]
+	path = external/embedded_utils
+	url = git@github.com:Kurzy92/embedded_utils.git
