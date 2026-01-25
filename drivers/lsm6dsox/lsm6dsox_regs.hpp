@@ -69,14 +69,14 @@ namespace lsm6dsox {
         constexpr uint8_t FS_XL_H           = 0x02;
         constexpr uint8_t ODR_XL            = 0x04;
 
-        enum class FS_XL {
+        enum class FS_XL_e {
             FS_2g                           = 0b00,
             FS_16g                          = 0b01,
             FS_4g                           = 0b10,
             FS_8g                           = 0b11
         };
 
-        enum class ODR_XL {
+        enum class ODR_XL_e {
             ODR_XL_OFF                     = 0b0000,
             ODR_XL_12_5Hz                  = 0b0001,
             ODR_XL_26Hz                    = 0b0010,
@@ -103,14 +103,14 @@ namespace lsm6dsox {
         constexpr uint8_t FS_G             = 0x02;
         constexpr uint8_t ODR_G            = 0x04;
 
-        enum class FS_G {
+        enum class FS_G_e {
             FS_250dps                      = 0b00,
             FS_500dps                      = 0b01,
             FS_1000dps                     = 0b10,
             FS_2000dps                     = 0b11
         };
 
-        enum class ODR_G {
+        enum class ODR_G_e {
             ODR_G_OFF                      = 0b0000,
             ODR_G_12_5Hz                   = 0b0001,
             ODR_G_26Hz                     = 0b0010,

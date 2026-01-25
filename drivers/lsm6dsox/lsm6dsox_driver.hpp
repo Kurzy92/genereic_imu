@@ -23,20 +23,29 @@ namespace lsm6dsox {
             return true;
         }
 
+        bool read_accel(int16_t& x, int16_t& y, int16_t& z) {
+            uint8_t data[6];
+            if (!bus_.read(reg::OUTX_L_XL, data, 6)) {
+                return false;
+            }
+
+            x = static_cast<int16_t>(data[0] | (data[1] << 8));
+            y = static_cast<int16_t>(data[2] | (data[3] << 8));
+            z = static_cast<int16_t>(data[4] | (data[5] << 8));
+
+            return true;
+        }
+
     private:
     // Member functions
         bool init_interface_() {
-            uint8_t data = 0;
-            // read and store CTRL4_C for bit manipulation
-            if (!read_reg_(reg::CTRL4_C, data)) return false;
-            
             if constexpr (interfaceType == Interface::I2C) {
-                data &= ~(1u << reg::CTRL4_C::I2C_DISABLE);
+                ctrl4_c.clear_bit(reg::CTRL4_C::I2C_DISABLE);
                 
             } else if constexpr (interfaceType == Interface::SPI) {
-                data |= (1u << reg::CTRL4_C::I2C_DISABLE);
+                ctrl4_c.set_bit(reg::CTRL4_C::I2C_DISABLE);
             }
-            return write_reg_(reg::CTRL4_C, data);
+            return write_reg_(reg::CTRL4_C, ctrl4_c.get_value());
         }
 
     // Register read/write helpers
