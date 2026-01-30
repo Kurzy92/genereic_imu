@@ -38,12 +38,15 @@ namespace lsm6dsox {
         AccelConfig accel;
         GyroConfig gyro;
     };
-
+    
+    // Configurations without implementations will be rejected at compile time
     template<Configuration C>
     struct ConfigTraits {
         static_assert(false, "ConfigTraits not specialized for this Configuration");
     };
 
+    // Configurations with implementations
+    
     template<>
     struct ConfigTraits<Configuration::DEFAULT> {
         static inline constexpr PresetConfig preset {

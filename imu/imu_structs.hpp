@@ -21,23 +21,28 @@ namespace imu {
     // Compile-time checks for driver interfaces
     template<typename T>
     concept AccelDriver = requires(T d, Accel_mps2& out) {
-        { d.init() } -> std::same_as<Status>;
-        { d.read(out) } -> std::same_as<Status>;
-        { T::present } -> std::convertible_to<bool>;
+        { d.init() } noexcept -> std::same_as<Status>;
+        { d.read(out) } noexcept -> std::same_as<Status>;
     };
 
     template<typename T>
     concept GyroDriver = requires(T d, Gyro_rads& out) {
-        { d.init() } -> std::same_as<Status>;
-        { d.read(out) } -> std::same_as<Status>;
+        { d.init() } noexcept -> std::same_as<Status>;
+        { d.read(out) } noexcept -> std::same_as<Status>;
         { T::present } -> std::convertible_to<bool>;
     };
 
     template<typename T>
     concept MagDriver = requires(T d, Mag_uT& out) {
-        { d.init() } -> std::same_as<Status>;
-        { d.read(out) } -> std::same_as<Status>;
+        { d.init() } noexcept -> std::same_as<Status>;
+        { d.read(out) } noexcept -> std::same_as<Status>;
         { T::present } -> std::convertible_to<bool>;
+    };
+
+    template<typename T>
+    concept TimerSource = requires(T t, uint32_t& out) {
+        { t.init() } noexcept -> std::same_as<Status>; 
+        { t.now_us(out) } noexcept -> std::same_as<Status>;
     };
 
     // Null drivers

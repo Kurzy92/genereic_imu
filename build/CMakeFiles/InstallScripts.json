@@ -1,0 +1,15 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/Projects/Embedded/IMUs/build/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/imu/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/imu/tests/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/_deps/googletest-build/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/_deps/googletest-build/googlemock/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/_deps/googletest-build/googletest/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/external/embedded_utils/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/external/embedded_utils/register/cmake_install.cmake",
+		"C:/Projects/Embedded/IMUs/build/external/embedded_utils/register/tests/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

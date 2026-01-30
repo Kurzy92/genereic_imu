@@ -3,7 +3,7 @@
     1. Create a portable C++20 IMU framework, that outputs IMU data for use in different systems
     2. Focus on good code quality and principles
 
-## IMU Architecture 
+## IMU Architecture  
 
     1. The IMU class is a templated class that takes in an accelerometer and gyroscope driver, and an optional magnetometer driver. It provides a single interface for reading IMU data, and outputs IMU data in a standard format.
     2. The IMU class is designed to be portable, and can be used with any accelerometer and gyroscope drivers that implement the required interface.
@@ -88,4 +88,6 @@
 
 ## Milestones & TODO's
 
-## Milestone 1: Basic IMU Framework
+### Milestone 1: Basic IMU Framework
+
+    TODO

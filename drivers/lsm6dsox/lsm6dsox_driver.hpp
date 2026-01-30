@@ -1,16 +1,11 @@
-#include "lsm6dsox_bus.hpp"
+#include "../driver_bus.hpp"
 #include "lsm6dsox_regs.hpp"
 #include "lsm6dsox_configuration.hpp"
 #include "register.hpp"
 
 namespace lsm6dsox {
 
-    enum class Interface {
-        I2C,
-        SPI
-    };
-
-    template<Bus T, Interface interfaceType, Configuration config=Configuration::DEFAULT>
+    template<DriverBus T, Configuration config=Configuration::DEFAULT>
     class Driver {
     public:
         Driver(T& bus) : bus_(bus) {}
@@ -20,6 +15,10 @@ namespace lsm6dsox {
                 return false;
             }
 
+            if (!check_id_()) {
+                return false;
+            }
+            
             return true;
         }
 
@@ -39,16 +38,25 @@ namespace lsm6dsox {
     private:
     // Member functions
         bool init_interface_() {
-            if constexpr (interfaceType == Interface::I2C) {
-                ctrl4_c.clear_bit(reg::CTRL4_C::I2C_DISABLE);
+            if constexpr (T::interface == imu::bus::Interface::I2C) {
+                ctrl4_c_.clear_bit(reg::CTRL4_C::I2C_DISABLE);
                 
-            } else if constexpr (interfaceType == Interface::SPI) {
-                ctrl4_c.set_bit(reg::CTRL4_C::I2C_DISABLE);
+            } else if constexpr (T::interface == imu::bus::Interface::SPI) {
+                ctrl4_c_.set_bit(reg::CTRL4_C::I2C_DISABLE);
             }
-            return write_reg_(reg::CTRL4_C, ctrl4_c.get_value());
+            return write_reg_(reg::CTRL4_C, ctrl4_c_.get_value());
         }
 
-    // Register read/write helpers
+        // Check WHO_AM_I register
+        bool check_id_() {
+            uint8_t id;
+            if (!read_reg_(reg::WHO_AM_I, id)) {
+                return false;
+            }
+            return id == reg::WHO_AM_I::ID;
+        }
+
+        // Register read/write helpers
         bool read_reg_(uint8_t reg, uint8_t& data) {
             return bus_.read(reg, &data, 1);
         }
@@ -66,7 +74,7 @@ namespace lsm6dsox {
         Register ctrl2_g_{CTRL2_G::RESET_VALUE};
         Register ctrl3_c_{CTRL3_C::RESET_VALUE};
         Register ctrl4_c_{CTRL4_C::RESET_VALUE};
-        Register ctrl5_g_{CTRL5_C::RESET_VALUE};
+        Register ctrl5_g_{CTRL5_G::RESET_VALUE};
         Register ctrl7_g_{CTRL7_G::RESET_VALUE};
 
     };  

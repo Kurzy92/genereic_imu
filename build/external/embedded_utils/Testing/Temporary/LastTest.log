@@ -1,0 +1,46 @@
+Start testing: Jan 30 16:34 Jerusalem Standard Time
+----------------------------------------------------------
+1/1 Testing: register_tests
+1/1 Test: register_tests
+Command: "C:/Projects/Embedded/IMUs/build/external/embedded_utils/register/tests/register_tests.exe"
+Directory: C:/Projects/Embedded/IMUs/build/external/embedded_utils/register/tests
+"register_tests" start time: Jan 30 16:34 Jerusalem Standard Time
+Output:
+----------------------------------------------------------
+[==========] Running 10 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 10 tests from RegisterTest
+[ RUN      ] RegisterTest.EmptyConstructorTest
+[       OK ] RegisterTest.EmptyConstructorTest (0 ms)
+[ RUN      ] RegisterTest.ValueConstructorTest
+[       OK ] RegisterTest.ValueConstructorTest (0 ms)
+[ RUN      ] RegisterTest.SetBitTest
+[       OK ] RegisterTest.SetBitTest (0 ms)
+[ RUN      ] RegisterTest.ClearBitTest
+[       OK ] RegisterTest.ClearBitTest (0 ms)
+[ RUN      ] RegisterTest.SetMaskTest
+[       OK ] RegisterTest.SetMaskTest (0 ms)
+[ RUN      ] RegisterTest.ClearMaskTest
+[       OK ] RegisterTest.ClearMaskTest (0 ms)
+[ RUN      ] RegisterTest.WriteFieldTest
+[       OK ] RegisterTest.WriteFieldTest (0 ms)
+[ RUN      ] RegisterTest.IsSetTest
+[       OK ] RegisterTest.IsSetTest (0 ms)
+[ RUN      ] RegisterTest.TestMaskTest
+[       OK ] RegisterTest.TestMaskTest (0 ms)
+[ RUN      ] RegisterTest.AssignmentOperatorTest
+[       OK ] RegisterTest.AssignmentOperatorTest (0 ms)
+[----------] 10 tests from RegisterTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 10 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 10 tests.
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"register_tests" end time: Jan 30 16:34 Jerusalem Standard Time
+"register_tests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Jan 30 16:34 Jerusalem Standard Time

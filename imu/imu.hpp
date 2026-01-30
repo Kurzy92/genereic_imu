@@ -4,28 +4,31 @@
 
 namespace imu {
     // IMU class
-    template<AccelDriver Accel, 
+    template<TimerSource Timer,
+            AccelDriver Accel, 
             GyroDriver Gyro=NullGyro, 
-            MagDriver Mag=NullMag>
+            MagDriver Mag=NullMag
+            >
 
     class IMU {
     public:
         static constexpr bool gyro_present = Gyro::present;
         static constexpr bool mag_present = Mag::present;
 
-        constexpr IMU(Accel& accel, Gyro& gyro, Mag& mag) noexcept
-            : accel_(accel), gyro_(gyro), mag_(mag) {}
+        constexpr IMU(Timer& timer, Accel& accel, Gyro& gyro, Mag& mag) noexcept
+            : timer_(timer), accel_(accel), gyro_(gyro), mag_(mag) {}
 
         // Convinience constructors 3DoF / 6DoF
-        constexpr IMU(Accel& accel) noexcept
+        constexpr IMU(Timer& timer, Accel& accel) noexcept
         requires std::same_as<Gyro, NullGyro> && std::same_as<Mag, NullMag>
-            : accel_(accel), gyro_(null_gyro_), mag_(null_mag_) {}  
+            : timer_(timer), accel_(accel), gyro_(null_gyro_), mag_(null_mag_) {}  
 
-        constexpr IMU(Accel& accel, Gyro& gyro) noexcept
+        constexpr IMU(Timer& timer, Accel& accel, Gyro& gyro) noexcept
         requires std::same_as<Mag, NullMag>
-            : accel_(accel), gyro_(gyro), mag_(null_mag_) {}
+            : timer_(timer), accel_(accel), gyro_(gyro), mag_(null_mag_) {}
 
         [[nodiscard]] Status init() noexcept {
+            if (auto s = timer_.init(); s != Status::OK) return s;
             if (auto s = accel_.init(); s != Status::OK) return s;
             if constexpr (gyro_present) {
                 if (auto s = gyro_.init(); s != Status::OK) return s;
@@ -57,27 +60,31 @@ namespace imu {
         }
 
         [[nodiscard]] Status read_all(Accel_mps2&   a_out, 
-                                    std::uint32_t  now_us,
-                                    Gyro_rads*     g_out = nullptr,
-                                    Mag_uT*        m_out = nullptr,
-                                    std::uint32_t* dt_us_out = nullptr) noexcept {
-            if(dt_us_out) *dt_us_out = (last_t_us_ == 0u) ? 0u : (now_us - last_t_us_);
-            last_t_us_ = now_us;
+                                    Gyro_rads&     g_out = nullptr,
+                                    Mag_uT&        m_out = nullptr) noexcept {
+            
+            uint32_t tmpTimer = 0;
+            if (auto s = timer_.now_us(tmpTimer); s != Status::OK) {
+                return s;
+            }
+            
+            last_t_us_ = tmpTimer;
 
-            if (auto s = accel_.read(a_out); s != Status::OK) return s;
+            if (auto s = accel_.read(a_out); s != Status::OK) 
+                return s;
+
             if constexpr (gyro_present) {
-                if (g_out) {
-                    if (auto s = gyro_.read(*g_out); s != Status::OK) return s;
-                }
+                if (auto s = gyro_.read(g_out); s != Status::OK) 
+                    return s;
             }
             if constexpr (mag_present) {
-                if (m_out) {
-                    if (auto s = mag_.read(*m_out); s != Status::OK) return s;
-                }
+                if (auto s = mag_.read(m_out); s != Status::OK) 
+                    return s;
             }
             return Status::OK;  
         }
     private:
+        Timer& timer_;
         Accel& accel_;
         Gyro& gyro_;
         Mag& mag_;
